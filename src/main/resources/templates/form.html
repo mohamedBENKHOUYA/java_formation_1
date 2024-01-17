@@ -1,0 +1,76 @@
+<html>
+<head>
+    <link rel="stylesheet" th:href="@{/css/form.css}" />
+    <title>Input Form</title>
+</head>
+
+<style>
+    .error {
+        color: red;
+        font-size: 0.8rem;
+    }
+</style>
+<body>
+
+<form th:action="@{processform}" method="post" th:object="${student}">
+    <fieldset>
+        <legend>Fill in this form:</legend>
+        <input name="firstName" type="text" placeholder="write your name..." th:field="*{firstName}"  />
+
+
+        <input name="lastName" type="text" placeholder="write your name..." th:field="*{lastName}" />
+        <span
+                th:if="${#fields.hasErrors('lastName')}"
+                th:errors="*{lastName}"
+                class="error" />
+
+        <select name="country">
+            <option value=""></option>
+<!--            <option value="fr">France</option>-->
+<!--            <option value="en">England</option>-->
+<!--            <option value="it">Italy</option>-->
+            <option th:each="country: ${countries}" th:value="${country}" th:text="${country}" ></option>
+        </select>
+
+        <div>
+            <div th:each="lng: ${languages}">
+                <label  th:text="${lng}" th:for="${lng}" />
+                <input  type="radio" th:name="lng" th:id="${lng}" th:value="${lng}">
+            </div>
+        </div>
+
+        <div>
+            <input type="hidden" name="sys" id="sys">
+            <div th:each="sys: ${systems}">
+                <label th:for="${sys}" th:text="${sys}" />
+                <input type="checkbox" name="sys[]" th:value="${sys}" th:id="${sys}" />
+
+            </div>
+        </div>
+
+        <p>Free passes: </p>
+        <input type="text" th:field="*{freePasses}" />
+        <span th:if="${#fields.hasErrors('freePasses')}"
+              th:errors="*{freePasses}"
+              class="error"
+        />
+
+        <p>Postal Code: </p>
+        <input type="text" th:field="*{postalCode}" />
+        <span th:if="${#fields.hasErrors('postalCode')}"
+              th:errors="*{postalCode}"
+              class="error"
+        />
+
+        <label for="courseCodeId" >course code</label>
+        <input type="text" id="courseCodeId" th:field="*{courseCode}" />
+        <span th:if="${#fields.hasErrors('courseCode')}"
+              th:errors="*{courseCode}"
+              class="error" />
+
+        <button>Submit</button>
+    </fieldset>
+</form>
+
+</body>
+</html>

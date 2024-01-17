@@ -1,0 +1,9 @@
+form {
+    /*background-color: blue;*/
+
+}
+
+fieldset {
+    display: grid;
+    gap: 1rem;
+}
